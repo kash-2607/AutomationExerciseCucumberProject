@@ -1,12 +1,14 @@
 package pageObject;
 
+import factory.DriverFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
-public class ProductDetailsPage extends PageBase{
+public class ProductDetailsPage extends PageBase {
 
-   public ProductDetailsPage(WebDriver driver) {
+    public ProductDetailsPage(WebDriver driver) {
         super(driver);
     }
 
@@ -32,6 +34,12 @@ public class ProductDetailsPage extends PageBase{
     @FindBy(xpath = "//b[normalize-space()='Brand:']")
     WebElement productBrand;
 
+    @FindBy(xpath = "//input[@id='quantity']")
+    WebElement quantity;
+
+    @FindBy(xpath = "//button[normalize-space()='Add to cart']")
+    WebElement addToCartButton;
+
     // Methods
     public boolean isProductInformationVisible() {
         return productInformation.isDisplayed();
@@ -40,7 +48,8 @@ public class ProductDetailsPage extends PageBase{
     public String getProductName() {
         return productName.getText();
     }
-    public boolean isProductNameVisible(){
+
+    public boolean isProductNameVisible() {
         return productName.isDisplayed();
     }
 
@@ -48,7 +57,7 @@ public class ProductDetailsPage extends PageBase{
         return productCategory.getText();
     }
 
-    public boolean isProductCategoryVisible(){
+    public boolean isProductCategoryVisible() {
         return productCategory.isDisplayed();
     }
 
@@ -71,6 +80,7 @@ public class ProductDetailsPage extends PageBase{
     public String getProductCondition() {
         return productCondition.getText();
     }
+
     public boolean isProductConditionVisible() {
         return productCondition.isDisplayed();
     }
@@ -78,7 +88,18 @@ public class ProductDetailsPage extends PageBase{
     public String getProductBrand() {
         return productBrand.getText();
     }
+
     public boolean isProductBrandVisible() {
         return productBrand.isDisplayed();
     }
+
+    public void changeQuantity(String q) {
+        quantity.clear();
+        quantity.sendKeys(q);
+    }
+
+    public void clickAddToCartButton(){
+        addToCartButton.click();
+    }
+
 }

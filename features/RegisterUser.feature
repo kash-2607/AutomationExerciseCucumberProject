@@ -26,3 +26,4 @@ Feature: Register User
     When user enters name and already registered email address
     And User click on 'Signup' button
     Then verifies that the error "Email Address already exist!" is visible
+

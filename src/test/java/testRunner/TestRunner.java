@@ -10,10 +10,10 @@ import org.junit.runner.RunWith;
 //        features = {"./features/LoginUser.feature"},
 //        features={"./features/ContactUsForm.feature"},
 //        features = ("./features/TestCasePage.feature"),
-        features = ("./features/TestingProductsSearchAndDetails.feature"),
+//        features = ("./features/TestingProductsSearchAndDetails.feature"),
 //        features = ("./features/ProductSearch.feature"),
 //        features = ("./features/VerifySubscription.feature"),
-//        features = ("./features/TestingAddToCart.feature"),
+        features = ("./features/TestingAddToCart.feature"),
         glue = {"stepDefinitions"},
         dryRun = false,
         monochrome = true

@@ -1,7 +1,9 @@
 package pageObject;
 
+import factory.DriverFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends PageBase{
@@ -61,6 +63,7 @@ public class HomePage extends PageBase{
     @FindBy(xpath = "//div[@class='alert-success alert']")
     WebElement successfullySubscribedAlertMessage;
 
+
     public void clickHomeLink() {
         homeLink.click();
     }
@@ -117,4 +120,5 @@ public class HomePage extends PageBase{
     public boolean verifySuccessfullySubscribedAlertMessageIsVisible(){
         return successfullySubscribedAlertMessage.isDisplayed();
     }
+
 }

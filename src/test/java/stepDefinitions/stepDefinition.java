@@ -25,9 +25,11 @@ public class stepDefinition {
     ProductDetailsPage productDetailsPage = new ProductDetailsPage(DriverFactory.getDriver());
     SearchProductPage searchProductPage = new SearchProductPage(DriverFactory.getDriver());
     ShoppingCartPage shoppingCartPage = new ShoppingCartPage(DriverFactory.getDriver());
+    CheckoutPage checkoutPage = new CheckoutPage(DriverFactory.getDriver());
 
     String name = DriverFactory.randomeString();
     String email = DriverFactory.randomeString()+"@example.com";
+    String quantity;
 
     @Given("Navigate to app url")
     public void navigate_to_url() {
@@ -52,9 +54,9 @@ public class stepDefinition {
             case "accept alert":DriverFactory.getDriver().switchTo().alert().accept();break;
             case "Continue Shopping":allProductsPage.clickContinueShoppingButton();break;
             case "View Cart":allProductsPage.clickViewCartLink();break;
-            case "cart":homePage.clickCartLink();
-
-            default : Assert.fail();return;
+            case "cart":homePage.clickCartLink();break;
+            case "Add to cart": productDetailsPage.clickAddToCartButton();break;
+            default :Assert.fail();
         }
     }
 
@@ -244,5 +246,16 @@ public class stepDefinition {
        int secondProductTotal = Integer.parseInt(shoppingCartPage.getSecondProductTotal().replaceAll("[^0-9]", ""));
 
        Assert.assertTrue((firstProductPrice*fistProductQuantity==firstProductTotal)&&(secondProductPrice*secondProductQuantity==secondProductTotal));
+    }
+
+    @When("User increase quantity to {string}")
+    public void userIncreaseQuantityTo(String quantity) {
+        productDetailsPage.changeQuantity(quantity);
+        this.quantity = quantity;
+    }
+
+    @Then("Verify that product is displayed in cart page with exact quantity")
+    public void verifyThatProductIsDisplayedInCartPageWithExactQuantity() {
+        Assert.assertEquals(quantity, checkoutPage.getQuantity());
     }
 }
