@@ -56,7 +56,7 @@ public class stepDefinition {
             case "Add to cart": productDetailsPage.clickAddToCartButton();break;
             case "proceed to checkout button": cartPage.clickProceedToCheckoutButton();break;
             case "register and login": cartPage.clickRegisterAndLoginLink();break;
-
+            case "place order":checkoutPage.clickPlaceOrder();break;
             default :Assert.fail();
         }
     }
@@ -83,6 +83,7 @@ public class stepDefinition {
             case "SUBSCRIPTION":Assert.assertTrue(homePage.subscriptionText.isDisplayed());break;
             case "You have been successfully subscribed!":Assert.assertTrue(homePage.verifySuccessfullySubscribedAlertMessageIsVisible());break;
             case "cart page": Assert.assertTrue(cartPage.isCartPageVisible());break;
+
 
             default : Assert.fail();
         }
@@ -266,5 +267,10 @@ public class stepDefinition {
     public void userReviewTheOrder() {
         checkoutPage.checkTotalOfEachProduct();
         checkoutPage.checkGrandTotal();
+    }
+
+    @When("User enter description in comment text area")
+    public void userEnterDescriptionInCommentTextArea() {
+        checkoutPage.enterDescription(DriverFactory.randomeString());
     }
 }

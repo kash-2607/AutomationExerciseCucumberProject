@@ -22,7 +22,9 @@ Feature: Testing place order functionality
     When User click on "cart" button
     When User click on "proceed to checkout button" button
     Then User review the Order
-    And
+    When User enter description in comment text area
+    And User click on "place order" button
+
 
 
 

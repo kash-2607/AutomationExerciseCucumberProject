@@ -1,6 +1,6 @@
 package pageObject;
 
-import org.junit.Assert;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,6 +23,10 @@ public class CheckoutPage extends PageBase{
     List<WebElement> totals;
 
     @FindBy(xpath = "//tbody/tr[last()]/td[last()]/p") WebElement grandTotal;
+
+    @FindBy(xpath = "//textarea[@name='message']") WebElement description;
+
+    @FindBy(xpath = "//a[normalize-space()='Place Order']") WebElement placeOrder;
 
     public boolean checkTotalOfEachProduct(){
         boolean check = false;
@@ -49,5 +53,13 @@ public class CheckoutPage extends PageBase{
         }
         return check;
     }
+
+    public void enterDescription(String input){
+        description.sendKeys(input);
+    }
+    public void clickPlaceOrder(){
+        placeOrder.click();
+    }
+
 
 }
