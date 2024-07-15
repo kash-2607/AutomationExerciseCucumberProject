@@ -1,12 +1,10 @@
 package stepDefinitions;
 
 import factory.DriverFactory;
-import io.cucumber.java.bs.A;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.sl.In;
+import org.checkerframework.checker.units.qual.C;
 import org.junit.Assert;
 import pageObject.*;
 
@@ -24,7 +22,7 @@ public class stepDefinition {
     AllProductsPage allProductsPage = new AllProductsPage(DriverFactory.getDriver());
     ProductDetailsPage productDetailsPage = new ProductDetailsPage(DriverFactory.getDriver());
     SearchProductPage searchProductPage = new SearchProductPage(DriverFactory.getDriver());
-    ShoppingCartPage shoppingCartPage = new ShoppingCartPage(DriverFactory.getDriver());
+    CartPage cartPage = new CartPage(DriverFactory.getDriver());
     CheckoutPage checkoutPage = new CheckoutPage(DriverFactory.getDriver());
 
     String name = DriverFactory.randomeString();
@@ -56,6 +54,9 @@ public class stepDefinition {
             case "View Cart":allProductsPage.clickViewCartLink();break;
             case "cart":homePage.clickCartLink();break;
             case "Add to cart": productDetailsPage.clickAddToCartButton();break;
+            case "proceed to checkout button": cartPage.clickProceedToCheckoutButton();break;
+            case "register and login": cartPage.clickRegisterAndLoginLink();break;
+
             default :Assert.fail();
         }
     }
@@ -81,11 +82,13 @@ public class stepDefinition {
             case "All the products related to search":Assert.assertTrue(!(searchProductPage.isProductsVisible()));break;
             case "SUBSCRIPTION":Assert.assertTrue(homePage.subscriptionText.isDisplayed());break;
             case "You have been successfully subscribed!":Assert.assertTrue(homePage.verifySuccessfullySubscribedAlertMessageIsVisible());break;
+            case "cart page": Assert.assertTrue(cartPage.isCartPageVisible());break;
+
             default : Assert.fail();
         }
     }
 
-    @When("Enter name and email address")
+    @When("User enter name and email address")
     public void enter_name_and_email() {
         sinupLoginPage.enterSignupName(name);
         sinupLoginPage.enterSignupEmail(email);
@@ -232,18 +235,18 @@ public class stepDefinition {
 
     @Then("Verifies both products are added to Cart")
     public void VerifiesBothProductsAreAddedToCart() {
-       Assert.assertTrue(shoppingCartPage.isFirstItemVisible()&&shoppingCartPage.isSecondItemVisible());
+       Assert.assertTrue(cartPage.isFirstItemVisible()&&cartPage.isSecondItemVisible());
     }
 
     @Then("Verifies their prices, quantity and total price")
     public void VerifiesTheirPricesQuantityAndTotalPrice() {
 
-       int firstProductPrice = Integer.parseInt(shoppingCartPage.getFirstProductPrice().replaceAll("[^0-9]", ""));
-       int fistProductQuantity = Integer.parseInt(shoppingCartPage.getFirstProductQuantity());
-       int firstProductTotal = Integer.parseInt(shoppingCartPage.getFirstProductTotal().replaceAll("[^0-9]", ""));
-       int secondProductPrice = Integer.parseInt(shoppingCartPage.getSecondProductPrice().replaceAll("[^0-9]", ""));
-       int secondProductQuantity = Integer.parseInt(shoppingCartPage.getSecondProductQuantity());
-       int secondProductTotal = Integer.parseInt(shoppingCartPage.getSecondProductTotal().replaceAll("[^0-9]", ""));
+       int firstProductPrice = Integer.parseInt(cartPage.getFirstProductPrice().replaceAll("[^0-9]", ""));
+       int fistProductQuantity = Integer.parseInt(cartPage.getFirstProductQuantity());
+       int firstProductTotal = Integer.parseInt(cartPage.getFirstProductTotal().replaceAll("[^0-9]", ""));
+       int secondProductPrice = Integer.parseInt(cartPage.getSecondProductPrice().replaceAll("[^0-9]", ""));
+       int secondProductQuantity = Integer.parseInt(cartPage.getSecondProductQuantity());
+       int secondProductTotal = Integer.parseInt(cartPage.getSecondProductTotal().replaceAll("[^0-9]", ""));
 
        Assert.assertTrue((firstProductPrice*fistProductQuantity==firstProductTotal)&&(secondProductPrice*secondProductQuantity==secondProductTotal));
     }
@@ -256,6 +259,12 @@ public class stepDefinition {
 
     @Then("Verify that product is displayed in cart page with exact quantity")
     public void verifyThatProductIsDisplayedInCartPageWithExactQuantity() {
-        Assert.assertEquals(quantity, checkoutPage.getQuantity());
+        Assert.assertEquals(quantity, cartPage.getQuantity());
+    }
+
+    @Then("User review the Order")
+    public void userReviewTheOrder() {
+        checkoutPage.checkTotalOfEachProduct();
+        checkoutPage.checkGrandTotal();
     }
 }

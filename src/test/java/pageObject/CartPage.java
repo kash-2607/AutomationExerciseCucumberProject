@@ -4,8 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class ShoppingCartPage extends PageBase{
-    public ShoppingCartPage(WebDriver driver) {
+public class CartPage extends PageBase{
+    public CartPage(WebDriver driver) {
         super(driver);
     }
     @FindBy(xpath = "//tr[@id='product-1']") WebElement firstItem;
@@ -16,7 +16,9 @@ public class ShoppingCartPage extends PageBase{
     @FindBy(xpath = "//tr[@id='product-2']//td[@class='cart_price']/p") WebElement secondProductPrice;
     @FindBy(xpath = "//tr[@id='product-2']//td[@class='cart_quantity']/button") WebElement secondProductQuantity;
     @FindBy(xpath = "//tr[@id='product-2']//td[@class='cart_total']/p")WebElement secondProductTotal;
-
+    @FindBy(xpath="//td[@class='cart_quantity']/button") WebElement quantity ;
+    @FindBy(xpath = "//a[normalize-space()='Proceed To Checkout']") WebElement proceedToCheckoutButton;
+    @FindBy(xpath = "//u[normalize-space()='Register / Login']") WebElement registerAndLoginLink;
 
     public boolean isFirstItemVisible(){return firstItem.isDisplayed();}
 
@@ -33,5 +35,14 @@ public class ShoppingCartPage extends PageBase{
     public String getSecondProductQuantity(){return secondProductQuantity.getText();}
 
     public String getSecondProductTotal(){return secondProductTotal.getText();}
+
+    public String getQuantity(){return quantity.getText();}
+
+    public boolean isCartPageVisible(){return driver.getTitle().equals("Automation Exercise - Checkout");}
+
+    public void clickProceedToCheckoutButton(){proceedToCheckoutButton.click();}
+
+    public void clickRegisterAndLoginLink(){registerAndLoginLink.click();}
+
 
 }

@@ -1,12 +1,13 @@
-Feature: Register User
-  Background:
+Feature: Testing place order functionality
+
+  Scenario: Testing registered while checkout
     Given Navigate to app url
     Then Verify "home page" is visible
-    When User click on "Signup Login" button
-    Then Verify 'New User Signup!' is visible
-
-  Scenario: Successful User Registration and Account Deletion
-
+    When User hovers over 'first product' and click add to cart
+    And User click on 'View Cart' button
+    Then Verify "cart page" is visible
+    When User click on "proceed to checkout button" button
+    And User click on "register and login" button
     When User enter name and email address
     And User click on 'Signup' button
     Then Verify 'ENTER ACCOUNT INFORMATION' is visible
@@ -18,12 +19,10 @@ Feature: Register User
     Then Verify 'ACCOUNT CREATED!' is visible
     When User click on 'Continue' button
     Then Verify 'Logged in as username' is visible
-    When User click on 'Delete Account' button
-    Then Verify 'ACCOUNT DELETED!' is visible
+    When User click on "cart" button
+    When User click on "proceed to checkout button" button
+    Then User review the Order
 
-  Scenario: Register User with existing email
 
-    When user enters name and already registered email address
-    And User click on 'Signup' button
-    Then verifies that the error "Email Address already exist!" is visible
+
 

@@ -13,7 +13,8 @@ import org.junit.runner.RunWith;
 //        features = ("./features/TestingProductsSearchAndDetails.feature"),
 //        features = ("./features/ProductSearch.feature"),
 //        features = ("./features/VerifySubscription.feature"),
-        features = ("./features/TestingAddToCart.feature"),
+//        features = ("./features/TestingAddToCart.feature"),
+        features = ("./features/TestingPlaceOder.feature"),
         glue = {"stepDefinitions"},
         dryRun = false,
         monochrome = true
